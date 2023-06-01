@@ -1,0 +1,12 @@
+G:\Daltechnology\SchoolApplication\SchoolApplication\Shared\bin\Debug\net6.0\SchoolApplication.Shared.deps.json
+G:\Daltechnology\SchoolApplication\SchoolApplication\Shared\bin\Debug\net6.0\SchoolApplication.Shared.dll
+G:\Daltechnology\SchoolApplication\SchoolApplication\Shared\bin\Debug\net6.0\SchoolApplication.Shared.pdb
+G:\Daltechnology\SchoolApplication\SchoolApplication\Shared\obj\Debug\net6.0\SchoolApplication.Shared.csproj.AssemblyReference.cache
+G:\Daltechnology\SchoolApplication\SchoolApplication\Shared\obj\Debug\net6.0\SchoolApplication.Shared.GeneratedMSBuildEditorConfig.editorconfig
+G:\Daltechnology\SchoolApplication\SchoolApplication\Shared\obj\Debug\net6.0\SchoolApplication.Shared.AssemblyInfoInputs.cache
+G:\Daltechnology\SchoolApplication\SchoolApplication\Shared\obj\Debug\net6.0\SchoolApplication.Shared.AssemblyInfo.cs
+G:\Daltechnology\SchoolApplication\SchoolApplication\Shared\obj\Debug\net6.0\SchoolApplication.Shared.csproj.CoreCompileInputs.cache
+G:\Daltechnology\SchoolApplication\SchoolApplication\Shared\obj\Debug\net6.0\SchoolApplication.Shared.dll
+G:\Daltechnology\SchoolApplication\SchoolApplication\Shared\obj\Debug\net6.0\refint\SchoolApplication.Shared.dll
+G:\Daltechnology\SchoolApplication\SchoolApplication\Shared\obj\Debug\net6.0\SchoolApplication.Shared.pdb
+G:\Daltechnology\SchoolApplication\SchoolApplication\Shared\obj\Debug\net6.0\ref\SchoolApplication.Shared.dll

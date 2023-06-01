@@ -1,0 +1,74 @@
+﻿@page "/operationstudent"
+@page "/operationstudent/{IdStudent:int}"
+@using SchoolApplication.Shared
+@inject IServiceStudent ServiceStudent
+@inject IServiceParent ServiceParent
+
+<h3>Operation</h3>
+@if (IdStudent == null)
+{
+    <PageTitle>Add</PageTitle>
+}
+else
+{
+    <PageTitle>Edit @student.FirstName</PageTitle>
+    <h1>Edit @student.FirstName</h1>
+}
+<EditForm Model="student" OnSubmit="HandleSubmit">
+    <div>
+        <label for="firstName">
+            First Name
+        </label>
+        <InputText id="firstName" @bind-Value="student.FirstName" class="form-control"></InputText>
+    </div>
+    <div>
+        <label for="lastName">
+            Last Name
+        </label>
+        <InputText id="lastName" @bind-Value="student.LastName" class="form-control"></InputText>
+    </div>
+    <div>
+        <label for="userName">
+            User Name
+        </label>
+        <InputText id="userName" @bind-Value="student.UserName" class="form-control"></InputText>
+    </div>
+
+     <div>
+        <label for="Student">Student</label>
+    
+        <InputSelect @bind-Value="student.parentId" class="form-control">
+            @foreach (var item in ServiceParent.parents)
+            {
+                <option value="@item.Id">@item.UserName</option>
+            }
+</InputSelect>
+
+    </div>
+    <br />
+    <button class="btn btn-primary" @onclick="(()=>HandleSubmit())">@btntext</button>
+
+</EditForm>
+@code {
+    [Parameter]
+    public int? IdStudent { get; set; }
+    string btntext = string.Empty;
+    Student student = new Student {Parent=new Parent() };
+    protected override async Task OnInitializedAsync()
+    {
+        btntext = IdStudent == null ? "Save" : "Edit";
+        await ServiceParent.Getparents();
+
+    }
+    protected override async Task OnParametersSetAsync()
+    {
+
+        student = await ServiceStudent.GetSingleStudent((int)IdStudent);
+    }
+    async Task HandleSubmit()
+    {
+        await ServiceStudent.createAndUpdatestudents(student);
+    }
+
+}
+*@*@*@

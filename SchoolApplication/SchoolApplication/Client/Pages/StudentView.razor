@@ -1,0 +1,85 @@
+﻿@page "/studenview"
+@page "/studenview/{parentId:int}"
+@inject IServiceStudent ServiceStudent
+@inject IServiceParent ServiceParent
+
+@inject NavigationManager NavigationManager
+@using SchoolApplication.Shared
+<h3>StudentView</h3>
+<EditForm Model="student">
+    <div>
+        <label for="Student">Student</label>
+       <select  @onchange="showStudentSearch" class="form-select">
+            @foreach (var item in ServiceParent.parents)
+            {
+                <option value="@item.Id">@item.UserName</option>
+            }
+        </select>
+
+    </div>
+     <br />
+    <button class="btn btn-primary" @onclick="(()=>addStudent())">Create New Parent</button>
+</EditForm>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>User Name</th>
+            <th>Parent Name</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in ServiceStudent.students)
+        {
+            <tr>
+                <td>@item.FirstName</td>
+                <td>@item.LastName</td>
+                <td>@item.UserName</td>
+                <td>@item.Parent?.UserName</td>
+
+                <td><button class="btn btn-primary" @onclick="(()=>showStudent(item.Id))"><i class="oi oi-pencil"></i></button></td>
+                <td><button class="btn btn-danger" @onclick="(()=>DeleteStudent(item.Id))"><i class="oi oi-trash"></i></button></td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    [Parameter]
+    public int parentId { get; set; }
+    Student student = new Student { };
+    protected override async Task OnInitializedAsync()
+    {
+        if (parentId !=0){
+            await ServiceStudent.GetStudentsSearch(parentId);
+        }else{
+            await ServiceStudent.Getstudents();
+
+        }
+    }
+    void showStudent(int id)
+    {
+        NavigationManager.NavigateTo($"operationstudent/{id}");
+    }
+    async Task DeleteStudent(int id)
+    {
+        await ServiceStudent.deletestudent(id);
+
+
+    }
+    void addStudent()
+    {
+        NavigationManager.NavigateTo("operationstudent");
+    }
+    void showStudentSearch(ChangeEventArgs e)
+    {
+        string x = e.Value.ToString();
+        var parentId = 0;
+        parentId = int.Parse(x);
+        ServiceStudent.GetStudentsSearch(parentId);
+    }
+}

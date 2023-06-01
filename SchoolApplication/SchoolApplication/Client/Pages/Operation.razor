@@ -1,0 +1,93 @@
+﻿@page "/operation"
+@page "/operation/{IdParent:int}"
+@using SchoolApplication.Shared
+@inject IServiceParent ServiceParent
+
+@*<h3>Operation</h3>*@
+@if(IdParent==null){
+    <PageTitle>Add</PageTitle>
+}else{
+    <PageTitle>Edit @parent.FirstName</PageTitle>
+    <h1>Edit @parent.FirstName</h1>
+}
+<EditForm Model="parent" OnSubmit="HandleSubmit">
+    <div>
+        <label for="firstName">
+            First Name
+        </label>
+        <InputText id="firstName" @bind-Value="parent.FirstName" class="form-control"></InputText>
+    </div>
+    <div>
+        <label for="lastName">
+            Last Name
+        </label>
+        <InputText id="lastName" @bind-Value="parent.LastName" class="form-control"></InputText>
+    </div>
+    <div>
+        <label for="userName">
+            User Name
+        </label>
+        <InputText id="userName" @bind-Value="parent.UserName" class="form-control"></InputText>
+    </div>
+    <div>
+        <label for="Adress">
+            Adress
+        </label>
+        <InputText id="Adress" @bind-Value="parent.Adress" class="form-control"></InputText>
+    </div>
+    <div>
+        <label for="phone1">
+          Phone
+        </label>
+        <InputNumber id="phone1" @bind-Value="parent.Phone1" class="form-control"></InputNumber>
+    </div>
+    <div>
+        <label for="WorkPhone">
+            Work Phone
+        </label>
+        <InputNumber id="WorkPhone" @bind-Value="parent.WorkPhone" class="form-control"></InputNumber>
+    </div>
+    <div>
+        <label for="HomePhone">
+            Home Phone
+        </label>
+        <InputNumber id="HomePhone" @bind-Value="parent.HomePhone" class="form-control"></InputNumber>
+    </div>
+    <div>
+        <label for="Sibilings">
+            Sibilings
+        </label>
+        <InputNumber id="Sibilings" @bind-Value="parent.Sibilings" class="form-control"></InputNumber>
+    </div>
+   @* <div>
+        <label for="parent">Parent</label>
+        <InputSelect @bind-Value="parent.Id" class="form-select">
+            @foreach(var item in ServiceParent.parents){
+                <option value="@item.Id">@item.FirstName</option>
+            }
+        </InputSelect>
+    </div>*@
+    <br />
+    <button class="btn btn-primary" @onclick="(()=>HandleSubmit())">@btntext</button>
+  
+</EditForm>
+@code {
+    [Parameter]
+    public int? IdParent{ get; set; }
+    string btntext = string.Empty;
+    Parent parent = new Parent { };
+    protected override async Task OnInitializedAsync(){
+        btntext = IdParent == null ? "Save" : "Edit";
+        //await ServiceParent.Getparents();
+    }
+    protected override async Task OnParametersSetAsync()
+    {
+
+        parent = await ServiceParent.GetSingleParent((int) IdParent);
+    }
+    async Task HandleSubmit()
+    {
+        await ServiceParent.createAndUpdateparents(parent);
+    }
+   
+}

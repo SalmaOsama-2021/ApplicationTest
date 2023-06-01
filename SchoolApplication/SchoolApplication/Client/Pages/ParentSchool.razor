@@ -1,0 +1,58 @@
+﻿@page "/parent"
+@inject IServiceParent ServiceParent
+@inject NavigationManager NavigationManager
+<PageTitle>Parent</PageTitle>
+<button class="btn btn-primary" @onclick="(()=>addParent())">Create New Parent</button>
+<table class="table">
+    <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>User Name</th>
+            <th>Adress</th>
+            <th>Phone1</th>
+            <th>Work Phone</th>
+            <th>Home Phone</th>
+            <th>Sibilings</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in ServiceParent.parents)
+        {
+            <tr>
+                <td>@item.FirstName</td>
+                <td>@item.LastName</td>
+                <td>@item.UserName</td>
+                <td>@item.Adress</td>
+                <td>@item.Phone1</td>
+                <td>@item.HomePhone</td>
+                <td>@item.WorkPhone</td>
+                <td>@item.Sibilings</td>
+                <td><button class="btn btn-primary" @onclick="(()=>showParent(item.Id))"><i class="oi oi-pencil"></i></button></td>
+                <td><button class="btn btn-danger" @onclick="(()=>DeleteParent(item.Id))"><i class="oi oi-trash"></i></button></td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        await ServiceParent.Getparents();
+    }
+    void showParent(int id)
+    {
+        NavigationManager.NavigateTo($"operation/{id}");
+    }
+    async Task DeleteParent(int id)
+    {
+       await ServiceParent.deleteparent(id);
+   
+
+    }
+    void addParent()
+    {
+        NavigationManager.NavigateTo("operation");
+    }
+}
